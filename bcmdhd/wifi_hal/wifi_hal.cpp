@@ -332,6 +332,7 @@ void wifi_cleanup(wifi_handle handle, wifi_cleaned_up_handler handler)
         WifiCommand *cmd = cmdi->cmd;
         if (cmd != NULL) {
             ALOGI("Cancelling command %p:%s", cmd, cmd->getType());
+            wifi_unregister_cmd(handle, cmd);
             pthread_mutex_unlock(&info->cb_lock);
             cmd->cancel();
             pthread_mutex_lock(&info->cb_lock);
